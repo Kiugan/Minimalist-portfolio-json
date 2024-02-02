@@ -1,34 +1,64 @@
 ---
-import {basics} from '@cv'
+import { basics } from "@cv"
+import Section from "@/components/Section.astro"
+import Mail from './icons/Mail.astro'
+import Phone from './icons/Phone.astro'
+import LinkedIn from './icons/LinkedIn.astro'
+import GitHub from './icons/GitHub.astro'
+import WorldMap from './icons/WorldMap.astro'
+import Pill from './icons/Pill.astro'
 
 const { name, label, image, location, profiles, phone, email} = basics
 const { city, region} = location
 ---
 
-<section class="">
-    <div>
-        <div>
-            <h1>{name}</h1>
-            <h2>{label}</h2>
+<Section>
+    <div class="flex">
+        <div class="max-w-[560px]">
+            <div>
+                <h1 class="text-xl font-bold font-mono pb-2">{name}</h1>
+                <h2 class= "text-sm text-gray-500">{label}</h2>
+            </div>
+            <span class="flex text-sm text-gray-500 py-2 pb-2">
+                <WorldMap class="size-3 md:size-5 mr-2"/>
+                {city}, {region}
+            </span>
+            <footer class="flex">
+                {
+                    email && (
+                        <a
+                            href={`mailto:${email}`}
+                            title={`Enviar un correo electronico a ${name} al correo ${email}`}
+                        >
+                        <Pill>
+                            <Mail/>
+                        </Pill>
+                        </a>
+                    )
+                }
+                {
+                    phone && (
+                        <a
+                            href={`tel:${phone}`}
+                            title={`Llamar por telefono a ${name} al numero ${phone}`}
+                        >
+                        <Pill>
+                            <Phone />    
+                        </Pill>
+                        </a>
+                    )
+                }
+                <Pill>
+                    <GitHub/>
+                </Pill>
+                <Pill>
+                    <LinkedIn/>
+                </Pill>
+
+            </footer>
         </div>
-        <span>
-            
-            {city}, {region}
-        </span>
-        <footer>
-            {
-                email && (
-                    <a
-                        href={`mailto:${email}`}
-                        title={`Enviar un correo electronico a ${name} al correo ${email}`}
-                    >
-                    
-                    </a>
-                )
-            }
-        </footer>
-        <figure>
-            <img src={image} alt={name}/>
+        <figure class="max-w-32 ml-10">
+            <img class="w-[300px] rounded-xl" src={image} alt={name}/>
         </figure>
     </div>
-</section>
+</Section>
